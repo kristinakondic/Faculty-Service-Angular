@@ -1,0 +1,96 @@
+<table class="table table-hover table-striped">
+  <thead>
+    <tr>
+      <th>Predmet</th>
+      <th>Učionica</th>
+      <th>Datum</th>
+      <th>Ispitni rok</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <ng-container *ngFor="let subject of subjects$ | async">
+      <tr *ngFor="let exam of subject.exams">
+        <td>{{ exam.subject.name }}</td>
+        <td>{{ exam.classroom }}</td>
+        <td>{{ exam.date.split("T")[0] }}</td>
+        <td>{{ exam.examPeriod.name }}</td>
+        <td>
+          <button
+            class="btn btn-outline-info"
+            data-toggle="modal"
+            data-target="#modalExam"
+            #openModalBtn
+            (click)="results(exam.id)"
+          >
+            Rezultati
+          </button>
+        </td>
+      </tr>
+    </ng-container>
+  </tbody>
+</table>
+
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="modalExam"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="modalExamTitle"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalExamLongTitle">
+          Rezultati ispita
+        </h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <table class="table table-hover table-striped">
+          <thead>
+            <tr>
+              <th>Student</th>
+              <th>Broj indeksa</th>
+              <th>Poeni</th>
+              <th>Ocena</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let examParticipation of examParticipations$ | async">
+              <td>
+                {{ examParticipation.student.userDTO.name }}
+                {{ examParticipation.student.userDTO.surname }}
+              </td>
+              <td>{{ examParticipation.student.indexNo }}</td>
+              <td>{{ examParticipation.points }}</td>
+              <td>{{ examParticipation.grade }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-secondary"
+          data-dismiss="modal"
+          #closeModalBtn
+        >
+          Odustani
+        </button>
+        <button type="button" class="btn btn-info">
+          Sačuvaj izmene
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

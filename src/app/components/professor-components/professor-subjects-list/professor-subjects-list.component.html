@@ -1,0 +1,20 @@
+<table class="table table-hover table-striped">
+  <thead>
+    <tr>
+      <th>Naziv</th>
+      <th>ESPB</th>
+      <th>Sifra</th>
+      <th>Godina</th>
+      <th>Smer</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let subject of subjects$ | async">
+      <td>{{ subject.name }}</td>
+      <td>{{ subject.espb }}</td>
+      <td>{{ subject.subjectNo }}</td>
+      <td>{{ subject.year }}</td>
+      <td>{{ subject.fieldsOfStudyDTO.name }}</td>
+    </tr>
+  </tbody>
+</table>

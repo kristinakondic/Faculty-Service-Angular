@@ -1,0 +1,32 @@
+.profile-image {
+  width: 150px;
+  height: 150px;
+  background-size: cover;
+  object-fit: cover;
+  display: block;
+  margin: 15px auto;
+  border-radius: 100px;
+  -webkit-border-radius: 100px;
+  -moz-border-radius: 100px;
+}
+
+.card-body {
+  margin: 0;
+}
+
+.card-footer {
+  padding: 10px 15px;
+  background-color: #fff;
+  border-top: none;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.card {
+  margin-right: 20px;
+}
+
+.errMsg {
+  color: red;
+  text-align: center;
+}

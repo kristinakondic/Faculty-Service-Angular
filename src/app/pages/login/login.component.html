@@ -1,0 +1,62 @@
+<div class="sve">
+  <div class="limiter">
+    <div class="container-login100">
+      <div class="wrap-login100">
+        <div class="login100-pic js-tilt" data-tilt>
+          <img
+            src="http://www.optolab.ftn.uns.ac.rs/images/PHOTOS/logo/ftn.png"
+            alt="IMG"
+          />
+        </div>
+
+        <form class="login100-form validate-form">
+          <span class="login100-form-title">
+            Studentska služba
+          </span>
+
+          <div
+            class="wrap-input100 validate-input"
+            data-validate="Valid email is required: ex@abc.xyz"
+          >
+            <input
+              class="input100"
+              type="text"
+              name="email"
+              placeholder="Email"
+              [(ngModel)]="loginUser.email"
+            />
+            <span class="focus-input100"></span>
+            <span class="symbol-input100 ">
+              <i class="fa fa-user" aria-hidden="true"></i>
+            </span>
+          </div>
+
+          <div
+            class="wrap-input100 validate-input"
+            data-validate="Password is required"
+          >
+            <input
+              class="input100"
+              type="password"
+              name="lozinka"
+              placeholder="Lozinka"
+              [(ngModel)]="loginUser.password"
+            />
+            <span class="focus-input100"></span>
+            <span class="symbol-input100">
+              <i class="fa fa-lock" aria-hidden="true"></i>
+            </span>
+          </div>
+          <div *ngIf="badLogin || error$ | async">
+            <p class="errMsg">Neuspešna prijava!</p>
+          </div>
+          <div class="container-login100-form-btn">
+            <button (click)="login()" class="login100-form-btn">
+              Prijava
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

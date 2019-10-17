@@ -1,0 +1,16 @@
+<table class="table table-hover table-striped">
+  <thead>
+    <tr>
+      <th>Predmet</th>
+      <th>Učionica</th>
+      <th>Datum</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let exam of exams$ | async">
+      <td>{{ exam.subject.name }}</td>
+      <td>{{ exam.classroom }}</td>
+      <td>{{ exam.date.split("T")[0] }}</td>
+    </tr>
+  </tbody>
+</table>

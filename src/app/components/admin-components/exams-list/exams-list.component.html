@@ -1,0 +1,207 @@
+<h4 class="display-4 text-center">Ispiti</h4>
+<div class="row  mt-3 mb-3" style="padding-left: 15px;">
+  <!-- Button trigger modal -->
+  <button
+    type="button"
+    class="btn btn-outline-secondary"
+    data-toggle="modal"
+    data-target="#modalExam"
+    #openModalBtn
+    (click)="setExamExists(false)"
+  >
+    Dodaj ispit
+  </button>
+</div>
+<table class="table table-hover table-striped">
+  <thead>
+    <tr>
+      <th>Predmet</th>
+      <th>Ispitni rok</th>
+      <th>Učionica</th>
+      <th>Datum</th>
+      <th>Tip</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let exam of exams$ | async">
+      <td>{{ exam.subject.name }}</td>
+      <td>{{ exam.examPeriod.name }}</td>
+      <td>{{ exam.classroom }}</td>
+      <td>{{ exam.date }}</td>
+      <td>{{ exam.type }}</td>
+      <td class="h5">
+        <button class="btn btn-outline-secondary" (click)="editExam(exam.id)">
+          Izmeni
+        </button>
+      </td>
+      <td class="h5">
+        <a
+          class="btn btn-outline-secondary"
+          (click)="getSelectedExam(exam.id)"
+          data-toggle="modal"
+          data-target="#DeleteModal"
+        >
+          Obriši</a
+        >
+      </td>
+    </tr>
+  </tbody>
+</table>
+<div
+  class="row d-flex justify-content-center"
+  *ngIf="examsPageable$ | async as examPage"
+>
+  <pagination
+    *ngIf="examPage.totalElements > examPage.size"
+    [boundaryLinks]="true"
+    [itemsPerPage]="examPage.size"
+    [totalItems]="examPage.totalElements"
+    (pageChanged)="pageChanged($event)"
+    previousText="&lsaquo;"
+    nextText="&rsaquo;"
+    firstText="&laquo;"
+    lastText="&raquo;"
+  >
+  </pagination>
+
+  <!-- Modal -->
+  <div
+    class="modal fade"
+    id="modalExam"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="modalExamTitle"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalExamLongTitle">
+            Dodavanje ispita
+          </h5>
+          <button
+            type="button"
+            class="close"
+            data-dismiss="modal"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group">
+              <div>
+                <label>Predmet</label>
+                <select name="subject" class="form-control" #selectSubject>
+                  <option
+                    *ngFor="let s of subjects$ | async"
+                    [ngValue]="subject"
+                    >{{ s.name }}</option
+                  >
+                </select>
+                <label>Ispitni rok</label>
+                <select
+                  name="examPeriod"
+                  class="form-control"
+                  #selectExamPeriod
+                >
+                  <option
+                    *ngFor="let e of examPeriods$ | async"
+                    [ngValue]="examPeriod"
+                    >{{ e.name }}</option
+                  >
+                </select>
+                <label>Ucionica</label>
+                <input
+                  name="classroom"
+                  class="form-control"
+                  placeholder="Unesite ucionicu"
+                  [(ngModel)]="newExam.classroom"
+                />
+                <label>Datum i vreme</label>
+                <input
+                  type="datetime-local"
+                  name="date"
+                  class="form-control"
+                  placeholder="Unesite datum"
+                  [(ngModel)]="newExam.date"
+                />
+                <label>Tip</label>
+                <select name="examType" class="form-control" #selectType>
+                  <option>Ispit</option>
+                  <option>Kolokvijum</option>
+                </select>
+              </div>
+            </div>
+          </form>
+          <p style="color:red; text-align: center;">{{ errorMsg }}</p>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-dismiss="modal"
+            #closeModalBtn
+          >
+            Odustani
+          </button>
+          <button type="button" class="btn btn-info" (click)="addExam()">
+            Sačuvaj izmene
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="modal fade"
+    id="DeleteModal"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="modalDeleteTitle"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalDeleteLongTitle">
+            Brisanje ispita
+          </h5>
+          <button
+            type="button"
+            class="close"
+            data-dismiss="modal"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group">
+              <div>
+                Da li stvarno želite da obrišete ovaj ispit?
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-dismiss="modal"
+            #closeDeleteModalBtn
+          >
+            Odustani
+          </button>
+          <button type="button" class="btn btn-info" (click)="deleteExam()">
+            Obriši
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

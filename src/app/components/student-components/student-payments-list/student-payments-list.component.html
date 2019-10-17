@@ -1,0 +1,31 @@
+<table class="table table-hover table-striped">
+  <thead>
+    <tr>
+      <th>Datum uplate</th>
+      <th>Iznos</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let payment of payments$ | async">
+      <td>{{ payment.date }}</td>
+      <td>{{ payment.value }}</td>
+    </tr>
+  </tbody>
+</table>
+<div
+  class="row d-flex justify-content-center"
+  *ngIf="paymentsPageable$ | async as payPage"
+>
+  <pagination
+    *ngIf="payPage.totalElements > payPage.size"
+    [boundaryLinks]="true"
+    [itemsPerPage]="payPage.size"
+    [totalItems]="payPage.totalElements"
+    (pageChanged)="pageChanged($event)"
+    previousText="&lsaquo;"
+    nextText="&rsaquo;"
+    firstText="&laquo;"
+    lastText="&raquo;"
+  >
+  </pagination>
+</div>

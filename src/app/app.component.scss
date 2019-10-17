@@ -1,0 +1,11 @@
+.background {
+  width: 100%;
+  padding-top: 3%;
+  min-height: 100vh;
+  display: block;
+  background: #edf6ff;
+  background: -webkit-linear-gradient(-135deg, #90cfe7, #edf6ff);
+  background: -o-linear-gradient(-135deg, #90cfe7, #edf6ff);
+  background: -moz-linear-gradient(-135deg, #90cfe7, #edf6ff);
+  background: linear-gradient(-360deg, #90cfe7, #edf6ff);
+}

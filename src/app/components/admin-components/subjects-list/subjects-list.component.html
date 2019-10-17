@@ -1,0 +1,212 @@
+<h4 class="display-4 text-center">Predmeti</h4>
+<div class="row  mt-3 mb-3" style="padding-left: 15px;">
+  <!-- Button trigger modal -->
+  <button
+    type="button"
+    class="btn btn-outline-secondary"
+    data-toggle="modal"
+    data-target="#modalSubject"
+    #openModalBtn
+    (click)="setSubjectExists(false)"
+  >
+    Dodaj predmet
+  </button>
+</div>
+<table class="table table-hover table-striped">
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>Naziv</th>
+      <th>ESPB</th>
+      <th>Sifra</th>
+      <th>Godina</th>
+      <th>Smer</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let subject of subjects$ | async">
+      <th scope="row">{{ subject.id }}</th>
+      <td>{{ subject.name }}</td>
+      <td>{{ subject.espb }}</td>
+      <td>{{ subject.subjectNo }}</td>
+      <td>{{ subject.year }}</td>
+      <td>{{ subject.fieldsOfStudyDTO.name }}</td>
+      <td class="h5">
+        <a class="btn btn-outline-secondary" (click)="editSubject(subject.id)">
+          Izmeni</a
+        >
+      </td>
+      <td class="h5">
+        <a
+          class="btn btn-outline-secondary"
+          (click)="getSelectedSubject(subject.id)"
+          data-toggle="modal"
+          data-target="#DeleteModal"
+        >
+          Obriši</a
+        >
+      </td>
+    </tr>
+  </tbody>
+</table>
+<div
+  class="row d-flex justify-content-center"
+  *ngIf="subjectPageable$ | async as subPage"
+>
+  <pagination
+    *ngIf="subPage.totalElements > subPage.size"
+    [boundaryLinks]="true"
+    [itemsPerPage]="subPage.size"
+    [totalItems]="subPage.totalElements"
+    (pageChanged)="pageChanged($event)"
+    previousText="&lsaquo;"
+    nextText="&rsaquo;"
+    firstText="&laquo;"
+    lastText="&raquo;"
+  >
+  </pagination>
+
+  <!-- Modal -->
+  <div
+    class="modal fade"
+    id="modalSubject"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="modalSubjectTitle"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalSubjectLongTitle">
+            Dodavanje predmeta
+          </h5>
+          <button
+            type="button"
+            class="close"
+            data-dismiss="modal"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group">
+              <div>
+                <label>Naziv</label>
+                <input
+                  name="name"
+                  class="form-control"
+                  placeholder="Unesite naziv"
+                  [(ngModel)]="newSubject.name"
+                />
+                <label>ESPB</label>
+                <input
+                  name="espb"
+                  class="form-control"
+                  placeholder="Unesite ESPB"
+                  [(ngModel)]="newSubject.espb"
+                />
+                <label>Broj predmeta</label>
+                <input
+                  name="subjectNo"
+                  class="form-control"
+                  placeholder="Unesite broj predmeta"
+                  [(ngModel)]="newSubject.subjectNo"
+                />
+                <label>Godina</label>
+                <input
+                  name="year"
+                  class="form-control"
+                  placeholder="Unesite godinu"
+                  [(ngModel)]="newSubject.year"
+                />
+                <label>Smer</label>
+                <select
+                  name="fieldsOfStudy"
+                  class="form-control"
+                  #selectFieldsOfStudy
+                >
+                  <option selected>Izaberite smer</option>
+                  <option
+                    *ngFor="let f of fieldsOfStudy$ | async"
+                    [ngValue]="field"
+                    >{{ f.name }}</option
+                  >
+                </select>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-dismiss="modal"
+            #closeModalBtn
+          >
+            Odustani
+          </button>
+          <button type="button" class="btn btn-info" (click)="addSubject()">
+            Sačuvaj izmene
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="modal fade"
+    id="DeleteModal"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="modalDeleteTitle"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalDeleteLongTitle">
+            Brisanje predmeta
+          </h5>
+          <button
+            type="button"
+            class="close"
+            data-dismiss="modal"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group">
+              <div></div>
+              Da li stvarno želite da obrišete ovaj predmet?
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-dismiss="modal"
+            #closeDeleteModalBtn
+          >
+            Odustani
+          </button>
+          <button
+            type="button"
+            class="btn btn-danger"
+            (click)="deleteSubject()"
+          >
+            Obriši
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

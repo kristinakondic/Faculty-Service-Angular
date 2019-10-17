@@ -1,0 +1,18 @@
+<div class="container">
+  <div class="row">
+    <div class="col-lg-3 col-md-4 col-xs-12">
+      <app-user-info [user$]="user$"></app-user-info>
+    </div>
+    <div class="col-lg-10 col-md-8 col-xs-12">
+      <div *ngIf="(userRole$ | async) == 'ADMIN'">
+        <app-admin></app-admin>
+      </div>
+      <div *ngIf="(userRole$ | async) == 'STUDENT'">
+        <app-student [user$]="user$"></app-student>
+      </div>
+      <div *ngIf="(userRole$ | async) == 'PROFESSOR'">
+        <app-professor></app-professor>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,109 @@
+<div *ngIf="user$ | async as user">
+  <div class="card">
+    <div>
+      <img
+        class="card-img-top profile-image"
+        src="https://scontent.fbeg2-1.fna.fbcdn.net/v/t1.0-9/22688692_1357582261035530_8285368166181099699_n.jpg?_nc_cat=111&_nc_oc=AQks74lmukhcEDfu7vkJQ66AxuyKo8bG7gwA4GFYYdpY0J3Ov_vJAk9eHHp-tLtOc_g&_nc_ht=scontent.fbeg2-1.fna&oh=2706326a3ba03619c507c2fdaecd44f0&oe=5DF37BEC"
+        alt="IMG"
+      />
+      <div class="card-body">
+        <strong>Ime i prezime:</strong>
+        <p>{{ user.name }} {{ user.surname }}</p>
+        <strong>JMBG:</strong>
+        <p>{{ user.identityNo }}</p>
+        <strong>Mesto stanovanja:</strong>
+        <p>{{ user.address }}</p>
+        <strong>Email:</strong>
+        <p>{{ user.email }}</p>
+      </div>
+    </div>
+    <div class="card-footer">
+      <div class="btn-group d-flex" role="group">
+        <button
+          type="button"
+          class="btn btn-info"
+          data-toggle="modal"
+          data-target="#modalUser"
+        >
+          Izmena lozinke
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="modalUser"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="modalUserTitle"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalUserLongTitle">
+          Izmena lozinke
+        </h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <div>
+              <label>Stara lozinka</label>
+              <input
+                name="oldPassword"
+                class="form-control"
+                type="password"
+                placeholder="Unesite staru lozinku"
+                [(ngModel)]="changePass.oldPassword"
+              />
+              <label>Nova lozinka</label>
+              <input
+                name="newPassword"
+                class="form-control"
+                type="password"
+                placeholder="Unesite novu lozinku"
+                [(ngModel)]="changePass.newPassword"
+              />
+              <label>Ponovite novu lozinku</label>
+              <input
+                name="repeatedNewPassword"
+                class="form-control"
+                type="password"
+                placeholder="Ponovite lozinku"
+                [(ngModel)]="changePass.repeatedPass"
+              />
+            </div>
+          </div>
+        </form>
+        <div>
+          <p class="errMsg">{{ errorMsg }}</p>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-secondary"
+          data-dismiss="modal"
+          #closeModalBtn
+        >
+          Odustani
+        </button>
+        <button type="button" class="btn btn-info" (click)="changePassword()">
+          Sačuvaj izmene
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

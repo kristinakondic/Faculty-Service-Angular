@@ -1,0 +1,25 @@
+<div class="tab-panel tabovi">
+  <tabset #memberTabs class="member-tabset">
+    <tab heading="Svi predmeti">
+      <app-student-all-subject-list
+        [subjects$]="subjects$"
+      ></app-student-all-subject-list>
+    </tab>
+    <tab heading="Položeni predmeti">
+      <app-student-passed-subject-list
+        [subjects$]="subjects$"
+      ></app-student-passed-subject-list>
+    </tab>
+    <tab heading="Nepoloženi predmeti">
+      <app-student-unpassed-subject-list
+        [subjects$]="subjects$"
+      ></app-student-unpassed-subject-list>
+    </tab>
+    <tab heading="Prijava ispita">
+      <app-exam-registration [subjects$]="subjects$"></app-exam-registration>
+    </tab>
+    <tab heading="Uplate">
+      <app-student-payments-list [user$]="user$"></app-student-payments-list>
+    </tab>
+  </tabset>
+</div>
