@@ -14,7 +14,7 @@ export class NavbarComponent implements OnInit {
     private router: Router,
     private store: Store<fromStore.AppState>
   ) {}
-  private loginStatus$: Observable<boolean>;
+  loginStatus$: Observable<boolean>;
   ngOnInit() {
     this.loginStatus$ = this.store.select(fromStore.getLoginStatus);
   }

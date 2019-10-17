@@ -10,9 +10,9 @@ import { Observable } from "rxjs";
   styleUrls: ["./login.component.scss"]
 })
 export class LoginComponent implements OnInit {
-  private loginUser: any = {};
-  private badLogin: any = false;
-  private error$: Observable<any>;
+  loginUser: any = {};
+  badLogin: any = false;
+  error$: Observable<any>;
   constructor(private store: Store<fromStore.AppState>) {}
 
   ngOnInit() {}
