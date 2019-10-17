@@ -1,12 +1,12 @@
 import { HttpClient, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-
+import { API_URL } from "../api";
 @Injectable({
   providedIn: "root"
 })
 export class DocumentService {
-  private baseUrl = "/api/document";
+  private baseUrl = API_URL + "/api/document";
 
   constructor(private http: HttpClient) {}
 

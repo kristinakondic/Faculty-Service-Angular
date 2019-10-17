@@ -3,13 +3,13 @@ import { HttpClient } from "@angular/common/http";
 
 import { Observable, throwError } from "rxjs";
 import { map, catchError } from "rxjs/operators";
-
+import { API_URL } from "../api";
 @Injectable()
 export class LoginService {
   constructor(private http: HttpClient) {}
   login(credentials): Observable<any> {
     console.log(credentials);
-    return this.http.post("/api/user/login", credentials).pipe(
+    return this.http.post(API_URL + "/api/user/login", credentials).pipe(
       map((res: any) => {
         console.log(res);
         let token = res.jwt;
