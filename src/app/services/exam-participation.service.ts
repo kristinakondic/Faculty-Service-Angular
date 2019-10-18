@@ -7,6 +7,12 @@ import { API_URL } from "../api";
 export class ExamParticipationService {
   constructor(private http: HttpClient) {}
 
+  registerExam(examParticipation): Observable<any> {
+    return this.http.post(
+      API_URL + "/api/examParticipation/register",
+      examParticipation
+    );
+  }
   getExamParticipations(examId): Observable<any> {
     return this.http.get(API_URL + "/api/examParticipation/" + examId);
   }
