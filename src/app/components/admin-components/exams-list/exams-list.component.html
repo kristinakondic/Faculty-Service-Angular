@@ -29,7 +29,9 @@
       <td>{{ exam.subject.name }}</td>
       <td>{{ exam.examPeriod.name }}</td>
       <td>{{ exam.classroom }}</td>
-      <td>{{ exam.date }}</td>
+      <td>
+        {{ exam.date.split("T")[0] }}
+      </td>
       <td>{{ exam.type }}</td>
       <td class="h5">
         <button class="btn btn-outline-secondary" (click)="editExam(exam.id)">
@@ -41,7 +43,7 @@
           class="btn btn-outline-secondary"
           (click)="getSelectedExam(exam.id)"
           data-toggle="modal"
-          data-target="#DeleteModal"
+          data-target="#DeleteModdal"
         >
           Obriši</a
         >
@@ -158,7 +160,7 @@
 
   <div
     class="modal fade"
-    id="DeleteModal"
+    id="DeleteModdal"
     tabindex="-1"
     role="dialog"
     aria-labelledby="modalDeleteTitle"

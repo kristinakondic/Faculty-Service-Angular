@@ -11,7 +11,8 @@ import * as fromServices from "../../services";
 export class SubjectsEffects {
   constructor(
     private actions$: Actions,
-    private subjectService: fromServices.SubjectService
+    private subjectService: fromServices.SubjectService,
+    private examParticipationService: fromServices.ExamParticipationService
   ) {}
 
   //load subjects
@@ -96,6 +97,25 @@ export class SubjectsEffects {
             of(new subjectActions.LoadProfessorSubjectsFail(error))
           )
         );
+    })
+  );
+
+  // register exam for subject
+  @Effect()
+  registerExam$ = this.actions$.pipe(
+    ofType(subjectActions.REGISTER_EXAM_FOR_SUBJECT),
+    switchMap(action => {
+      return this.examParticipationService.registerExam(action["payload"]).pipe(
+        map(
+          () =>
+            new subjectActions.RegisterExamForSubjectSuccess(
+              action["payload"]["exam"]["id"]
+            )
+        ),
+        catchError(error =>
+          of(new subjectActions.RegisterExamForSubjectFail(error))
+        )
+      );
     })
   );
 }

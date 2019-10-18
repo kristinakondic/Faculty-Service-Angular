@@ -22,6 +22,30 @@ export class LoadUserSuccess implements Action {
   constructor(public payload: User) {}
 }
 
+export const LOAD_STUDENT = "[User] Load Student";
+export const LOAD_STUDENT_FAIL = "[User] Load Student Fail";
+export const LOAD_STUDENT_SUCCESS = "[User] Load Student Success";
+export const CHANGE_ACCOUNT_STATUS = "[User] Change Account Status";
+
+export class LoadStudent implements Action {
+  readonly type = LOAD_STUDENT;
+  constructor(public payload: any) {}
+}
+
+export class LoadStudentFail implements Action {
+  readonly type = LOAD_STUDENT_FAIL;
+  constructor(public payload: any) {}
+}
+
+export class LoadStudentSuccess implements Action {
+  readonly type = LOAD_STUDENT_SUCCESS;
+  constructor(public payload: any) {}
+}
+
+export class ChangeAccountStatus implements Action {
+  readonly type = CHANGE_ACCOUNT_STATUS;
+}
+
 // change password
 export const CHANGE_PASSWORD = "[ChangePass] Change Password";
 export const CHANGE_PASSWORD_FAIL = "[ChangePass] Change Password Fail";
@@ -48,4 +72,8 @@ export type UserAction =
   | LoadUserSuccess
   | ChangePassword
   | ChangePasswordFail
-  | ChangePasswordSuccess;
+  | ChangePasswordSuccess
+  | LoadStudent
+  | LoadStudentFail
+  | LoadStudentSuccess
+  | ChangeAccountStatus;

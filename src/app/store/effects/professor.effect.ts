@@ -63,7 +63,7 @@ export class ProfessorsEffects {
         map(
           () => new professorActions.DeleteProfessorSuccess(action["payload"])
         ),
-        catchError(error => of(new professorActions.EditProfessorFail(error)))
+        catchError(error => of(new professorActions.DeleteProfessorFail(error)))
       );
     })
   );

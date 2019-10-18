@@ -103,12 +103,15 @@ export function reducer(
     }
 
     case fromProfessor.DELETE_PROFESSOR_SUCCESS: {
-      const professor = action.payload;
+      const professorId = action.payload;
+      const newContent = state.data.content.filter(
+        prof => prof.id != professorId
+      );
       return {
         ...state,
         loading: false,
         loaded: true,
-        data: { ...state.data, content: [...state.data.content, professor] }
+        data: { ...state.data, content: newContent }
       };
     }
 

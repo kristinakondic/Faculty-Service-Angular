@@ -16,7 +16,10 @@
       ></app-student-unpassed-subject-list>
     </tab>
     <tab heading="Prijava ispita">
-      <app-exam-registration [subjects$]="subjects$"></app-exam-registration>
+      <app-exam-registration
+        [user$]="user$"
+        [subjects$]="subjects$"
+      ></app-exam-registration>
     </tab>
     <tab heading="Uplate">
       <app-student-payments-list [user$]="user$"></app-student-payments-list>

@@ -1,3 +1,5 @@
+import { Student } from "./student.model";
+
 export class User {
   id: any;
   name: string;
@@ -6,6 +8,7 @@ export class User {
   identityNo: string;
   email: string;
   role: string;
+  student?: any;
 
   constructor() {
     this.id = null;

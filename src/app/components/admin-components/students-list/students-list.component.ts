@@ -18,6 +18,7 @@ export class StudentListComponent implements OnInit {
   newStudent = new Student();
   studentExists = null;
   selectedStudentIdToDelete = null;
+  errorMsg = "";
 
   constructor(private store: Store<fromStore.AppState>) {}
 
@@ -41,11 +42,25 @@ export class StudentListComponent implements OnInit {
   }
 
   addStudent() {
-    this.studentExists
-      ? this.store.dispatch(new fromStore.EditStudent(this.newStudent))
-      : this.store.dispatch(new fromStore.AddStudent(this.newStudent));
-    this.closeModalBtn["nativeElement"].click();
-    this.newStudent = new Student();
+    if (
+      !this.newStudent.indexNo ||
+      !this.newStudent.userDTO.name ||
+      !this.newStudent.userDTO.surname ||
+      !this.newStudent.userDTO.address ||
+      !this.newStudent.userDTO.email ||
+      !this.newStudent.userDTO.identityNo ||
+      !this.newStudent.yearOfStudy
+    ) {
+      this.errorMsg = "Morate popuniti sva polja.";
+    } else {
+      this.studentExists
+        ? this.store.dispatch(new fromStore.EditStudent(this.newStudent))
+        : this.store.dispatch(new fromStore.AddStudent(this.newStudent));
+      this.closeModalBtn["nativeElement"].click();
+      this.newStudent = new Student();
+      this.store.dispatch(new fromStore.LoadStudents({ page: 0, size: 6 }));
+      this.students$ = this.store.select(fromStore.getStudents);
+    }
   }
 
   setStudentExists(status) {

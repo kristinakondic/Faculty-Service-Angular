@@ -3,17 +3,15 @@ export class Subject {
   name: any;
   espb: any;
   subjectNo: any;
-  fieldsOfStudy: any;
+  fieldsOfStudyDTO: any;
   year: any;
-  passed: any;
 
   constructor() {
     this.id = null;
     this.name = null;
     this.espb = null;
     this.subjectNo = null;
-    this.fieldsOfStudy = null;
+    this.fieldsOfStudyDTO = null;
     this.year = null;
-    this.passed = null;
   }
 }

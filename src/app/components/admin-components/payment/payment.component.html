@@ -29,6 +29,7 @@
     placeholder="Unesite iznos"
     [(ngModel)]="payment.value"
   />
+  <p style="color:red">{{ errorMsg }}</p>
   <br />
   <button
     style="margin: 5px"
@@ -38,5 +39,4 @@
   >
     Izvršite uplatu
   </button>
-  <p style="color:red">{{ errorMsg }}</p>
 </div>

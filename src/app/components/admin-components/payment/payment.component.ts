@@ -36,9 +36,12 @@ export class PaymentComponent implements OnInit {
   }
 
   pay() {
-    console.log(this.payment);
-    if (this.payment.value == null || this.payment.student == null) {
-      this.errorMsg = "Morate popuniti sva polja";
+    if (
+      this.payment.value == null ||
+      this.payment.student == null ||
+      this.payment.value < 1
+    ) {
+      this.errorMsg = "Neispravan unos.";
     } else {
       this.store.dispatch(new fromStore.AddPayment(this.payment));
       alert("Uspešno uplaćen novac.");

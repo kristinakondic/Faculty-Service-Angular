@@ -39,7 +39,7 @@
           class="btn btn-outline-secondary"
           (click)="getSelectedStudent(student.id)"
           data-toggle="modal"
-          data-target="#DeleteModal"
+          data-target="#DeleteModall"
         >
           Obriši</a
         >
@@ -144,6 +144,11 @@
               </div>
             </div>
           </form>
+          <div>
+            <p class="errMsg" style="color: red; text-align: center;">
+              {{ errorMsg }}
+            </p>
+          </div>
         </div>
         <div class="modal-footer">
           <button
@@ -164,7 +169,7 @@
 
   <div
     class="modal fade"
-    id="DeleteModal"
+    id="DeleteModall"
     tabindex="-1"
     role="dialog"
     aria-labelledby="modalDeleteTitle"

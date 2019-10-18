@@ -20,6 +20,7 @@ export class SubjectsListComponent implements OnInit {
   subjectExists = null;
   selectedSubjectIdToDelete = null;
   fieldsOfStudy$: Observable<FieldsOfStudy[]>;
+  errorMsg = "";
 
   constructor(private store: Store<fromStore.AppState>) {}
 
@@ -47,12 +48,25 @@ export class SubjectsListComponent implements OnInit {
   }
 
   addSubject() {
-    this.newSubject.fieldsOfStudy = this.selectFieldsOfStudy.nativeElement.value;
-    this.subjectExists
-      ? this.store.dispatch(new fromStore.EditSubject(this.newSubject))
-      : this.store.dispatch(new fromStore.AddSubject(this.newSubject));
-    this.closeModalBtn["nativeElement"].click();
-    this.newSubject = new Subject();
+    if (
+      !this.newSubject.espb ||
+      !this.newSubject.name ||
+      !this.newSubject.subjectNo ||
+      !this.newSubject.year
+    ) {
+      this.errorMsg = "Morate popuniti sva polja.";
+    } else {
+      this.newSubject.fieldsOfStudyDTO = new FieldsOfStudy();
+      this.newSubject.fieldsOfStudyDTO.name = this.selectFieldsOfStudy.nativeElement.value;
+      console.log(this.newSubject);
+      this.subjectExists
+        ? this.store.dispatch(new fromStore.EditSubject(this.newSubject))
+        : this.store.dispatch(new fromStore.AddSubject(this.newSubject));
+      this.closeModalBtn["nativeElement"].click();
+      this.newSubject = new Subject();
+      this.store.dispatch(new fromStore.LoadSubjects({ page: 0, size: 6 }));
+      this.subjects$ = this.store.select(fromStore.getSubjects);
+    }
   }
 
   setSubjectExists(status) {

@@ -103,12 +103,13 @@ export function reducer(
     }
 
     case fromExam.DELETE_EXAM_SUCCESS: {
-      const exam = action.payload;
+      const examId = action.payload;
+      const newContent = state.data.content.filter(e => e.id != examId);
       return {
         ...state,
         loading: false,
         loaded: true,
-        data: { ...state.data, content: [...state.data.content, exam] }
+        data: { ...state.data, content: newContent }
       };
     }
 

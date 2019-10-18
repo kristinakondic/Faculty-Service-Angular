@@ -49,19 +49,21 @@ export class ProfessorsListComponent implements OnInit {
   addProfessor() {
     this.newProfessor.type = this.selectType.nativeElement.value.toLowerCase();
     if (
-      !this.newProfessor.userDTO.name ||
-      this.newProfessor.userDTO.identityNo ||
-      this.newProfessor.userDTO.email ||
-      this.newProfessor.userDTO.address ||
+      this.newProfessor.userDTO.name == null ||
+      this.newProfessor.userDTO.identityNo == null ||
+      this.newProfessor.userDTO.email == null ||
+      this.newProfessor.userDTO.address == null ||
       this.newProfessor.userDTO.surname == null
     ) {
+      this.errorMsg = "Morate popuniti sva polja.";
+    } else {
       this.professorExists
         ? this.store.dispatch(new fromStore.EditProfessor(this.newProfessor))
         : this.store.dispatch(new fromStore.AddProfessor(this.newProfessor));
       this.closeModalBtn["nativeElement"].click();
       this.newProfessor = new Professor();
-    } else {
-      this.errorMsg = "Morate popuniti sva polja.";
+      this.store.dispatch(new fromStore.LoadProfessors({ page: 0, size: 6 }));
+      this.professors$ = this.store.select(fromStore.getProfessors);
     }
   }
 

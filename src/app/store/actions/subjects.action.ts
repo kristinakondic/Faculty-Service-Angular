@@ -127,6 +127,28 @@ export class LoadProfessorSubjectsSuccess implements Action {
   constructor(public payload: Subject[]) {}
 }
 
+// load professor subjects
+export const REGISTER_EXAM_FOR_SUBJECT = "[Subjects] Register Exam For Subject";
+export const REGISTER_EXAM_FOR_SUBJECT_FAIL =
+  "[Subjects] Register Exam For Subject Fail";
+export const REGISTER_EXAM_FOR_SUBJECT_SUCCESS =
+  "[Subjects] Register Exam For Subject Success";
+
+export class RegisterExamForSubject implements Action {
+  readonly type = REGISTER_EXAM_FOR_SUBJECT;
+  constructor(public payload: any) {}
+}
+
+export class RegisterExamForSubjectFail implements Action {
+  readonly type = REGISTER_EXAM_FOR_SUBJECT_FAIL;
+  constructor(public payload: any) {}
+}
+
+export class RegisterExamForSubjectSuccess implements Action {
+  readonly type = REGISTER_EXAM_FOR_SUBJECT_SUCCESS;
+  constructor(public payload: any) {}
+}
+
 // action types
 export type SubjectsAction =
   | LoadSubjects
@@ -148,4 +170,7 @@ export type SubjectListAction =
   | LoadStudentSubjectsSuccess
   | LoadProfessorSubjects
   | LoadProfessorSubjectsFail
-  | LoadProfessorSubjectsSuccess;
+  | LoadProfessorSubjectsSuccess
+  | RegisterExamForSubject
+  | RegisterExamForSubjectFail
+  | RegisterExamForSubjectSuccess;

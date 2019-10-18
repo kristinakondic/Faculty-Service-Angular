@@ -61,16 +61,17 @@ export class ExamsListComponent implements OnInit {
       this.errorMsg = "Popunite sva polja.";
     } else {
       this.newExam.type = this.selectType.nativeElement.value;
-      this.newExam.subjectDTO = new Subject();
-      this.newExam.subjectDTO.name = this.selectSubject.nativeElement.value;
-      this.newExam.examPeriodDTO = new ExamPeriod();
-      this.newExam.examPeriodDTO.name = this.selectExamPeriod.nativeElement.value;
-      console.log(JSON.stringify(this.newExam));
+      this.newExam.subject = new Subject();
+      this.newExam.subject.name = this.selectSubject.nativeElement.value;
+      this.newExam.examPeriod = new ExamPeriod();
+      this.newExam.examPeriod.name = this.selectExamPeriod.nativeElement.value;
       this.examExists
         ? this.store.dispatch(new fromStore.EditExam(this.newExam))
         : this.store.dispatch(new fromStore.AddExam(this.newExam));
       this.closeModalBtn["nativeElement"].click();
       this.newExam = new Exam();
+      this.store.dispatch(new fromStore.LoadExams({ page: 0, size: 6 }));
+      this.exams$ = this.store.select(fromStore.getExams);
     }
   }
 

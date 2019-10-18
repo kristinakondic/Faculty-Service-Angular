@@ -69,6 +69,39 @@ export function reducer(
         loaded: false
       };
     }
+
+    //register exam for subject
+    case fromSubject.REGISTER_EXAM_FOR_SUBJECT: {
+      return {
+        ...state,
+        loading: true
+      };
+    }
+
+    case fromSubject.REGISTER_EXAM_FOR_SUBJECT_SUCCESS: {
+      const examId = action.payload;
+      let updatedData = state.data.map(subject => {
+        subject["exams"] = subject["exams"].map(exam => {
+          if (exam.id == examId) exam.registered = true;
+          return exam;
+        });
+        return subject;
+      });
+      return {
+        ...state,
+        loading: false,
+        loaded: true,
+        data: updatedData
+      };
+    }
+
+    case fromSubject.REGISTER_EXAM_FOR_SUBJECT_FAIL: {
+      return {
+        ...state,
+        loading: false,
+        loaded: false
+      };
+    }
   }
 
   return state;

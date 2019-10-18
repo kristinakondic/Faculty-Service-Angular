@@ -1,6 +1,9 @@
 import { Component, OnInit, Input } from "@angular/core";
-import { Observable } from "rxjs";
+import { Observable, Subscription } from "rxjs";
 import { Subject } from "src/app/models/subject.model";
+import { User } from "src/app/models/user.model";
+import * as fromStore from "../../../store";
+import { Store } from "@ngrx/store";
 
 @Component({
   selector: "app-exam-registration",
@@ -9,9 +12,25 @@ import { Subject } from "src/app/models/subject.model";
 })
 export class ExamRegistrationComponent implements OnInit {
   @Input() subjects$: Observable<Subject[]>;
-  constructor() {}
+  @Input() user$: Observable<User>;
+  subscription: Subscription;
+  constructor(private store: Store<fromStore.AppState>) {}
 
   ngOnInit() {}
 
-  registerExam(examId) {}
+  registerExam(exam) {
+    this.store.dispatch(new fromStore.ChangeAccountStatus());
+    this.subscription = this.user$.subscribe(user => {
+      this.store.dispatch(
+        new fromStore.RegisterExamForSubject({
+          student: { id: user.id },
+          exam: { id: exam.id }
+        })
+      );
+    });
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
 }

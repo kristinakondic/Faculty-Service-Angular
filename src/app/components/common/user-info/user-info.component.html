@@ -3,7 +3,7 @@
     <div>
       <img
         class="card-img-top profile-image"
-        src="https://scontent.fbeg2-1.fna.fbcdn.net/v/t1.0-9/22688692_1357582261035530_8285368166181099699_n.jpg?_nc_cat=111&_nc_oc=AQks74lmukhcEDfu7vkJQ66AxuyKo8bG7gwA4GFYYdpY0J3Ov_vJAk9eHHp-tLtOc_g&_nc_ht=scontent.fbeg2-1.fna&oh=2706326a3ba03619c507c2fdaecd44f0&oe=5DF37BEC"
+        src="https://randomuser.me/api/portraits/lego/3.jpg"
         alt="IMG"
       />
       <div class="card-body">
@@ -15,6 +15,13 @@
         <p>{{ user.address }}</p>
         <strong>Email:</strong>
         <p>{{ user.email }}</p>
+        <ng-container *ngIf="user.student">
+          <hr />
+          <strong>Broj indeksa:</strong>
+          <p>{{ user.student.indexNo }}</p>
+          <strong>Stanje na računu:</strong>
+          <p>{{ user.student.accountStatus }},00 RSD</p>
+        </ng-container>
       </div>
     </div>
     <div class="card-footer">

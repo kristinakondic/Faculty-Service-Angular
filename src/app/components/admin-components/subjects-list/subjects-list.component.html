@@ -15,7 +15,6 @@
 <table class="table table-hover table-striped">
   <thead>
     <tr>
-      <th>Id</th>
       <th>Naziv</th>
       <th>ESPB</th>
       <th>Sifra</th>
@@ -27,7 +26,6 @@
   </thead>
   <tbody>
     <tr *ngFor="let subject of subjects$ | async">
-      <th scope="row">{{ subject.id }}</th>
       <td>{{ subject.name }}</td>
       <td>{{ subject.espb }}</td>
       <td>{{ subject.subjectNo }}</td>
@@ -43,7 +41,7 @@
           class="btn btn-outline-secondary"
           (click)="getSelectedSubject(subject.id)"
           data-toggle="modal"
-          data-target="#DeleteModal"
+          data-target="#DeleteModaal"
         >
           Obriši</a
         >
@@ -110,11 +108,11 @@
                   placeholder="Unesite ESPB"
                   [(ngModel)]="newSubject.espb"
                 />
-                <label>Broj predmeta</label>
+                <label>Sifra predmeta</label>
                 <input
                   name="subjectNo"
                   class="form-control"
-                  placeholder="Unesite broj predmeta"
+                  placeholder="Unesite sifru predmeta"
                   [(ngModel)]="newSubject.subjectNo"
                 />
                 <label>Godina</label>
@@ -130,7 +128,6 @@
                   class="form-control"
                   #selectFieldsOfStudy
                 >
-                  <option selected>Izaberite smer</option>
                   <option
                     *ngFor="let f of fieldsOfStudy$ | async"
                     [ngValue]="field"
@@ -140,6 +137,11 @@
               </div>
             </div>
           </form>
+          <div>
+            <p class="errMsg" style="color: red; text-align: center;">
+              {{ errorMsg }}
+            </p>
+          </div>
         </div>
         <div class="modal-footer">
           <button
@@ -160,7 +162,7 @@
 
   <div
     class="modal fade"
-    id="DeleteModal"
+    id="DeleteModaal"
     tabindex="-1"
     role="dialog"
     aria-labelledby="modalDeleteTitle"

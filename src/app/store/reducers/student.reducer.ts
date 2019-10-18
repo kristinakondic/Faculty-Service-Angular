@@ -103,12 +103,13 @@ export function reducer(
     }
 
     case fromStudent.DELETE_STUDENT_SUCCESS: {
-      const student = action.payload;
+      const studentId = action.payload;
+      const newContent = state.data.content.filter(s => s.id != studentId);
       return {
         ...state,
         loading: false,
         loaded: true,
-        data: { ...state.data, content: [...state.data.content, student] }
+        data: { ...state.data, content: newContent }
       };
     }
 

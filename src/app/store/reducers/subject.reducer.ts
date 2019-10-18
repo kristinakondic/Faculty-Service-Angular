@@ -104,12 +104,13 @@ export function reducer(
     }
 
     case fromSubject.DELETE_SUBJECT_SUCCESS: {
-      const subject = action.payload;
+      const subjectId = action.payload;
+      const newContent = state.data.content.filter(s => s.id != subjectId);
       return {
         ...state,
         loading: false,
         loaded: true,
-        data: { ...state.data, content: [...state.data.content, subject] }
+        data: { ...state.data, content: newContent }
       };
     }
 

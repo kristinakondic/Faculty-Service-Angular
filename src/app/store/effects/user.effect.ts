@@ -13,6 +13,7 @@ export class UserEffects {
   constructor(
     private actions$: Actions,
     private userService: fromServices.UserService,
+    private studentService: fromServices.StudentService,
     private router: Router
   ) {}
 
@@ -23,6 +24,18 @@ export class UserEffects {
       return this.userService.getUser(email["payload"]).pipe(
         map(user => new userAction.LoadUserSuccess(user)),
         catchError(error => of(new userAction.LoadUserFail(error)))
+      );
+    })
+  );
+
+  //load student
+  @Effect()
+  loadStudent$ = this.actions$.pipe(
+    ofType(userAction.LOAD_STUDENT),
+    switchMap(action => {
+      return this.studentService.getStudent(action["payload"]).pipe(
+        map(student => new userAction.LoadStudentSuccess(student)),
+        catchError(error => of(new userAction.LoadStudentFail(error)))
       );
     })
   );

@@ -5,6 +5,7 @@
       <th>Učionica</th>
       <th>Datum</th>
       <th>Ispitni rok</th>
+      <th>Cena ispita</th>
       <th></th>
     </tr>
   </thead>
@@ -13,10 +14,16 @@
       <tr *ngFor="let exam of subject.exams">
         <td>{{ exam.subject.name }}</td>
         <td>{{ exam.classroom }}</td>
-        <td>{{ exam.date.split("T")[0] }}</td>
+        <td>
+          {{ exam.date.split("T")[0] }}
+          {{ exam.date.split("T")[1].split(":")[0] }}:{{
+            exam.date.split("T")[1].split(":")[1]
+          }}h
+        </td>
         <td>{{ exam.examPeriod.name }}</td>
+        <td>200 RSD</td>
         <td *ngIf="!exam.registered">
-          <button class="btn btn-outline-info" (click)="registerExam(exam.id)">
+          <button class="btn btn-outline-info" (click)="registerExam(exam)">
             Prijavi
           </button>
         </td>
